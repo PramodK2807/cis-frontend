@@ -26,19 +26,19 @@ const Login = () => {
         }
 
         try {
-            let result = await fetch('http://localhost:3500/login',{method:"POST",
+            let result = await fetch(`${process.env.REACT_APP_API}/login`,{method:"POST",
             body: JSON.stringify({email, password}),
             headers: { "Content-Type": "application/json" },
           })
-
-          let userData = await result.json();
-          if(userData.success){
-              alert(userData.message)
+      
+          let res = await result.json()
+          if(res.success){
+              alert(res.message)
+              localStorage.setItem("userAuth", JSON.stringify(res))
               navigate('/')
-              localStorage.setItem("userAuth", JSON.stringify(userData))
           }
           else{
-            alert(userData.message)
+            alert(res.message)
           }
 
         } 
